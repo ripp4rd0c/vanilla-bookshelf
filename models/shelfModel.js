@@ -10,6 +10,14 @@ function findById(id){
 
 }
 
+function grabAll () {
+    return new Promise((resolve, reject) => {
+        resolve(books);
+    });
+}
+
+
 module.exports = {
-    findById
+    findById,
+    grabAll
 }

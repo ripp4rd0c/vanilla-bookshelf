@@ -1,5 +1,16 @@
 const Bookshelf = require('../models/shelfModel');
 
+async function getAllBooks(req, res){
+    try {
+        const books = await Bookshelf.grabAll();
+        res.writeHead(200, {
+            'content-type': 'applicaton/json'
+        }).end(JSON.stringify(books))
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 async function getBookById(id, req, res){
     try {
         const book = await Bookshelf.findById(id);
@@ -22,5 +33,6 @@ async function getBookById(id, req, res){
 
 
 module.exports = {
-    getBookById
+    getBookById,
+    getAllBooks
 }
