@@ -66,10 +66,38 @@ async function deleteBook(id, res) {
     }
 }
 
+async function updateBook(id, req, res){
+    try {
+        const old = await Bookshelf.findById(id);
+        if(!old){
+            res.writeHead(404, {
+                'content-type': 'application/json'
+            });
+            res.end(JSON.stringify({ message: 'Book not found' }));
+        }
+        else{
+            const { name, author } = await parseBodyData(req);
+            const newBook = {
+                name: name || old.name,
+                author: author || old.author // order matters before and after the || operator
+            }
+            console.log(newBook);
+            const updatedBook = await Bookshelf.update(id, newBook);
+            res.writeHead(201, {
+                'content-type': 'application/json'
+            })
+            res.end(JSON.stringify(updatedBook));
+        }
+        
+    } catch (error) {
+        
+    }
+}
 
 module.exports = {
     getBookById,
     getAllBooks,
     addBook,
-    deleteBook
+    deleteBook,
+    updateBook
 }

@@ -35,9 +35,19 @@ function remove(id){
     }) 
 }
 
+function update(id, book){
+    return new Promise((resolve, _) => {
+        const index = books.findIndex(b => b.id === id);
+        books[index] = {id, ...book};
+        writeToDatabase(JSON.stringify(books));
+        resolve(books[index]);
+    })
+}
+
 module.exports = {
     findById,
     grabAll,
     create,
-    remove
+    remove,
+    update
 }

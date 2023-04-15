@@ -4,12 +4,14 @@ const {
     getAllBooks,
     addBook,
     deleteBook,
-
-
+    updateBook
 } = require('./controllers/shelfController');
+
+// TODO refactoring code and pushing to github
 
 const server = http.createServer((req, res) => {
     const route = req.url;
+
     // /api/books/:id   [GET PUT DELETE]
     // /api/books/      [GET POST]
 
@@ -18,11 +20,12 @@ const server = http.createServer((req, res) => {
     let m, id;
 
     if((m = route.match(pathToBook)) && req.method === 'GET'){
-        id = m[1]
+        id = m[1];
         getBookById(id, req, res);
     }
     else if ((m = route.match(pathToBook)) && req.method === 'PUT'){
-
+        id = m[1];
+        updateBook(id, req, res);
     }
     else if ((m = route.match(pathToBook)) && req.method === 'DELETE'){
         id = m[1];
