@@ -44,9 +44,32 @@ async function addBook(req, res) {
     }
 }
 
+async function deleteBook(id, res) {
+    try {
+        const book = Bookshelf.findById(id);
+        if(!book){
+            res.writeHead(404, {
+                'content-type': 'application/json'
+            });
+            res.end(JSON.stringify({ message: 'Book not found' }));
+        }
+        else{
+            await Bookshelf.remove(id);
+            res.writeHead(200, {
+                'content-type': 'application/json'
+            });
+            res.end(JSON.stringify({ message: `Book ${id} removed succesfully` }));
+
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 
 module.exports = {
     getBookById,
     getAllBooks,
-    addBook
+    addBook,
+    deleteBook
 }

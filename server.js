@@ -3,6 +3,7 @@ const {
     getBookById,
     getAllBooks,
     addBook,
+    deleteBook,
 
 
 } = require('./controllers/shelfController');
@@ -24,7 +25,8 @@ const server = http.createServer((req, res) => {
 
     }
     else if ((m = route.match(pathToBook)) && req.method === 'DELETE'){
-
+        id = m[1];
+        deleteBook(id, res);
     }
     else if(route.match(validRootPath) && req.method === 'GET'){
         getAllBooks(req, res);
@@ -43,6 +45,6 @@ const server = http.createServer((req, res) => {
 });
 
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5000;
 server.listen(PORT)
 

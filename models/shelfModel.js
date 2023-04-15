@@ -27,8 +27,17 @@ function create(book){
     })
 }
 
+function remove(id){
+    return new Promise((resolve, _) => {
+        books = books.filter(b => b.id!== id);
+        writeToDatabase(JSON.stringify(books));
+        resolve();
+    }) 
+}
+
 module.exports = {
     findById,
     grabAll,
     create,
+    remove
 }
