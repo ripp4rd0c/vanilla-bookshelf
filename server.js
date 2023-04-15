@@ -2,7 +2,9 @@ const http = require('http');
 const {
     getBookById,
     getAllBooks,
-    
+    addBook,
+
+
 } = require('./controllers/shelfController');
 
 const server = http.createServer((req, res) => {
@@ -28,7 +30,7 @@ const server = http.createServer((req, res) => {
         getAllBooks(req, res);
     }
     else if (route.match(validRootPath) && req.method === 'POST') {
-
+        addBook(req, res);
     }
 
 

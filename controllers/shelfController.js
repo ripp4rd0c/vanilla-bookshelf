@@ -1,4 +1,5 @@
 const Bookshelf = require('../models/shelfModel');
+const { parseBodyData } = require('../utils');
 
 async function getAllBooks(req, res){
     try {
@@ -31,8 +32,21 @@ async function getBookById(id, req, res){
     }
 }
 
+async function addBook(req, res) {
+    try {
+        const data = await parseBodyData(req);
+        const newBook = await Bookshelf.create(data);
+        res.writeHead(201, {
+            'content-type': 'application/json'
+        }).end(JSON.stringify(newBook));
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 
 module.exports = {
     getBookById,
-    getAllBooks
+    getAllBooks,
+    addBook
 }
